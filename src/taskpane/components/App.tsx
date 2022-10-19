@@ -5,20 +5,15 @@ import * as React from 'react'
 import { useEffect, useState }  from 'react'
 
 // FluentUI
-import { ThemeProvider, PartialTheme } from '@fluentui/react'
-import { useBoolean } from '@fluentui/react-hooks'
+import { ThemeProvider, PartialTheme, IDropdownOption } from '@fluentui/react'
 
 // FluentUIComponents
+import { PrimaryButton } from '@fluentui/react/lib/Button'
 
 // Components
 import { Message } from './Message'
-
-// ---------------------- Types ----------------------
-type SelectionRange = {
-  sheetName: string,
-  range: string
-}
-
+import TableSelecter from './TableSelecter'
+import { getTableNameList } from '../excelAPI'
 
 // ---------------------- Dev Settings ----------------------
 const isLogging = true
@@ -47,10 +42,11 @@ const App = () => {
     registerSelectionChangeHandler()
   }) 
 
-  // Settings
+  // useState
   const [theme, setTheme] = useState<string>('light')
   const [selectSheet, setSelectSheet] = useState<string | undefined>(undefined)
   const [selectRange, setSelectRange] = useState<string | undefined>(undefined)
+  const [tableList, setTableList] = useState<IDropdownOption<any>[]>([{key: '1', text: 'apple'}, {key: '2', text: 'orange'}, {key: '3', text: 'banana'}])
 
   // ---------------------- Excel API ----------------------
 
@@ -82,9 +78,21 @@ const App = () => {
     })
   }
 
+  //ToDo ここでテーブルネームの取得を実験している
+  const testCall = async () => {
+    const newTableList:IDropdownOption<any>[] = await getTableNameList()
+    const key = newTableList.length + 1
+    newTableList.push({key: key.toString(), text: 'melon'})
+    setTableList(newTableList)
+  }
+
+
+
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <Message selectSheet={selectSheet} selectRange={selectRange}></Message>
+      <PrimaryButton onClick={testCall}>aaa</PrimaryButton>
+      <TableSelecter tableList={tableList}></TableSelecter>
     </ThemeProvider>
   )
 }

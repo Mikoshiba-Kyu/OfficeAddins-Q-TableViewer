@@ -1,27 +1,21 @@
-const isLogging = true
+import { IDropdownOption } from "@fluentui/react"
 
 /**
- * ワークシートコレクションに選択範囲変更イベントを定義する
+ * ワークブック上の全テーブルの名前をDropdown用の配列で返す。
  */
-export const registerSelectionChangeHandler = async () => {
-    await Excel.run(async (context) => {
-        const sheets = context.workbook.worksheets
-        sheets.onSelectionChanged.add(onWorksheetCollectionSelectionChange)
-        await context.sync()
-        isLogging && console.log("A handler has been registered for the OnAdded event.")
-    })
-}
+export const getTableNameList = async (): Promise<IDropdownOption<any>[]>=> {
+    const result: IDropdownOption<any>[] =[]
 
-/**
- * ワークシートコレクションの選択範囲変更時に行われる処理
- */
-const onWorksheetCollectionSelectionChange = async (args: Excel.WorksheetSelectionChangedEventArgs) => {
     await Excel.run(async (context) => {
-        const sheet = context.workbook.worksheets.getItem(args.worksheetId)
-        sheet.load(["name"])
+        const tables = context.workbook.tables
+        tables.load()
         await context.sync()
 
-        const result = `シート名 : ${sheet.name} 範囲 : ${args.address}`
-        isLogging && console.log(`[選択範囲の変更] ${result}`)
+        // ToDo テーブルが存在していたら動的に作る
+        if (tables.count > 0) {
+
+        }
     })
+
+    return result
 }
