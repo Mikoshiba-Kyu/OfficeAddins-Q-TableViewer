@@ -80,12 +80,6 @@ const App = () => {
     })
   }
 
-  //TODO ここでテーブルネームの取得を実験している
-  const testCall = async () => {
-    const newTableList:IDropdownOption<any>[] = await getTableNameList()
-    setTableList(newTableList)
-  }
-
   // test
   const columns = [
     { key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200, isResizable: true },
@@ -102,8 +96,6 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-      <Message selectRange={selectRange}></Message>
-      <PrimaryButton onClick={testCall}>aaa</PrimaryButton>
       <TableViewer columns={columns} items={items} tableList={tableList}/>
     </ThemeProvider>
   )

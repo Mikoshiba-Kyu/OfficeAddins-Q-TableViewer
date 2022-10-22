@@ -3,6 +3,7 @@ import { DetailsList, DetailsListLayoutMode, SelectionMode, IColumn } from '@flu
 import { DefaultPalette, IDropdownOption, IStackItemStyles, IStackStyles, IStackTokens, Stack } from '@fluentui/react'
 import { useState } from 'react'
 import TableSelecter from './TableSelecter'
+import CompactModeChange from './CompactModeChange'
 
 export interface Props {
     columns: IColumn[]
@@ -14,23 +15,11 @@ export const TableViewer = (props: Props) => {
 
     const [isCompact, setIsCompact] = useState(false)
 
-    const toggleCompactMode = () => {
-        setIsCompact(!isCompact) 
-    }
-
-    const stackStyles: IStackStyles = {
-        root: {
-            background: DefaultPalette.themeTertiary,
-        }
-    }
-
     const stackItemStyles: IStackItemStyles = {
         root: {
             alignItems: 'left',
-            background: DefaultPalette.themePrimary,
-            color: DefaultPalette.white,
             display: 'flex',
-            height: 80,
+            height: 70,
             justifyContent: 'left',
         }
     }
@@ -42,15 +31,12 @@ export const TableViewer = (props: Props) => {
     
     return (
         <>
-            <Stack horizontal styles={stackStyles} tokens={stackTokens}>
-                <Stack.Item grow={3} styles={stackItemStyles}>
+            <Stack horizontal horizontalAlign="start" tokens={stackTokens}>
+                <Stack.Item grow={2} styles={stackItemStyles}>
                     <TableSelecter tableList={props.tableList}/>
                 </Stack.Item>
-                <Stack.Item grow={2} styles={stackItemStyles}>
-                    Grow is 2
-                </Stack.Item>
-                <Stack.Item grow styles={stackItemStyles}>
-                    Grow is 1
+                <Stack.Item grow={1} styles={stackItemStyles}>
+                    <CompactModeChange isCompact={isCompact} setIsCompact={setIsCompact}></CompactModeChange>
                 </Stack.Item>
             </Stack>
             <DetailsList
