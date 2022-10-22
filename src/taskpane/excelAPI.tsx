@@ -17,7 +17,7 @@ export const getTableNameList = async (): Promise<IDropdownOption<any>[]>=> {
         result = tables.items.map((value, index) => {
             return {key: index + 1, text: value.name}
         })
-        result.unshift({key: 0, text: ''})
+        result.unshift({key: 0, text: '--------------------------------'})
         isLogging && console.log(`[Addins] Created NewList is ${JSON.stringify(result)}`)
         
     })
