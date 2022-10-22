@@ -7,13 +7,16 @@ export interface Props {
 
 const listStyle: Partial<IDropdownStyles> = {
 	dropdown: {
-		fontSize: 16
+		fontSize: 16,
+		width: 300
 	}
 }
 
 export const TableSelecter = (props: Props) => {
 
 	const [selectedTable, setSelectedTable] = React.useState<IDropdownOption>()
+
+	// Selecterの値変更時の動作
 	const onSelectChange = (_event: React.FormEvent<HTMLDivElement>, item: IDropdownOption): void => {
 		setSelectedTable(item)
 	}
@@ -21,9 +24,9 @@ export const TableSelecter = (props: Props) => {
 	return (
         <Dropdown
 			selectedKey={selectedTable ? selectedTable.key : undefined}
-			label="テーブル"
+			label="テーブル選択"
 			options={props.tableList}
-			defaultSelectedKey={'1'}
+			defaultSelectedKey={'0'}
 			styles={listStyle}
 			onChange={onSelectChange}
 		/>

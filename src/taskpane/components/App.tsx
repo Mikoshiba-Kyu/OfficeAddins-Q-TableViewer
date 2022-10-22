@@ -14,6 +14,7 @@ import { PrimaryButton } from '@fluentui/react/lib/Button'
 import { Message } from './Message'
 import TableSelecter from './TableSelecter'
 import { getTableNameList } from '../excelAPI'
+import { DetailsListBasicExample } from './TableData'
 
 // ---------------------- Dev Settings ----------------------
 const isLogging = true
@@ -46,7 +47,7 @@ const App = () => {
   const [theme, setTheme] = useState<string>('light')
   const [selectSheet, setSelectSheet] = useState<string | undefined>(undefined)
   const [selectRange, setSelectRange] = useState<string | undefined>(undefined)
-  const [tableList, setTableList] = useState<IDropdownOption<any>[]>([{key: '1', text: 'apple'}, {key: '2', text: 'orange'}, {key: '3', text: 'banana'}])
+  const [tableList, setTableList] = useState<IDropdownOption<any>[]>([{key: '0', text: ''}])
 
   // ---------------------- Excel API ----------------------
 
@@ -58,7 +59,7 @@ const App = () => {
         const sheets = context.workbook.worksheets
         sheets.onSelectionChanged.add(onWorksheetCollectionSelectionChange)
         await context.sync()
-        isLogging && console.log("A handler has been registered for the OnAdded event.")
+        isLogging && console.log("[Addins] 選択範囲変更イベントを有効化")
     })
   }
 
@@ -74,15 +75,13 @@ const App = () => {
         setSelectSheet(sheet.name)
         setSelectRange(args.address)
         const result = `シート名 : ${sheet.name} 範囲 : ${args.address}`
-        isLogging && console.log(`[選択範囲の変更] ${result}`)
+        isLogging && console.log(`[Addins] 選択範囲の変更: ${result}`)
     })
   }
 
-  //ToDo ここでテーブルネームの取得を実験している
+  //TODO ここでテーブルネームの取得を実験している
   const testCall = async () => {
     const newTableList:IDropdownOption<any>[] = await getTableNameList()
-    const key = newTableList.length + 1
-    newTableList.push({key: key.toString(), text: 'melon'})
     setTableList(newTableList)
   }
 
@@ -93,6 +92,7 @@ const App = () => {
       <Message selectSheet={selectSheet} selectRange={selectRange}></Message>
       <PrimaryButton onClick={testCall}>aaa</PrimaryButton>
       <TableSelecter tableList={tableList}></TableSelecter>
+      <DetailsListBasicExample></DetailsListBasicExample>
     </ThemeProvider>
   )
 }
