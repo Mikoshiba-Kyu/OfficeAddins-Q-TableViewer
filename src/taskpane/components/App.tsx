@@ -44,9 +44,12 @@ const App = () => {
   }) 
 
   // useState
+  type SelectedRange = {
+    sheetName: string,
+    range: string
+  }
   const [theme, setTheme] = useState<string>('light')
-  const [selectSheet, setSelectSheet] = useState<string | undefined>(undefined)
-  const [selectRange, setSelectRange] = useState<string | undefined>(undefined)
+  const [selectRange, setSelectRange] = useState<SelectedRange | undefined>(undefined)
   const [tableList, setTableList] = useState<IDropdownOption<any>[]>([{key: '0', text: ''}])
 
   // ---------------------- Excel API ----------------------
@@ -72,10 +75,9 @@ const App = () => {
         sheet.load(["name"])
         await context.sync()
 
-        setSelectSheet(sheet.name)
-        setSelectRange(args.address)
-        const result = `シート名 : ${sheet.name} 範囲 : ${args.address}`
-        isLogging && console.log(`[Addins] 選択範囲の変更: ${result}`)
+        const selection: SelectedRange = {sheetName: sheet.name, range: args.address}
+        setSelectRange(selection)
+        isLogging && console.log(`[Addins] 選択範囲の変更: シート名 : ${selection.sheetName} 範囲 : ${selection.range}`)
     })
   }
 
@@ -89,7 +91,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-      <Message selectSheet={selectSheet} selectRange={selectRange}></Message>
+      <Message selectRange={selectRange}></Message>
       <PrimaryButton onClick={testCall}>aaa</PrimaryButton>
       <TableSelecter tableList={tableList}></TableSelecter>
       <DetailsListBasicExample></DetailsListBasicExample>

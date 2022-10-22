@@ -1,14 +1,18 @@
 import * as React from 'react'
 
+type SelectedRange = {
+    sheetName: string,
+    range: string
+}
+
 export interface Props {
-	selectSheet: string
-    selectRange: string
+    selectRange: SelectedRange | undefined
 }
 
 export const Message = (props: Props) => {
 	return (
         <>
-    		<h1>{`シート名 : ${props.selectSheet}　範囲 : ${props.selectRange}  `}</h1>
+    		<h1>{`シート名 : ${props.selectRange ? props.selectRange.sheetName : '-' }　範囲 : ${props.selectRange ? props.selectRange.range : '-'}  `}</h1>
 		</>
 	)
 }
