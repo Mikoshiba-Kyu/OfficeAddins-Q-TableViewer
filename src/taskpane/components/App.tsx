@@ -5,10 +5,10 @@ import * as React from 'react'
 import { useEffect, useState }  from 'react'
 
 // FluentUI
-import { ThemeProvider, PartialTheme, IDropdownOption } from '@fluentui/react'
+import { ThemeProvider, PartialTheme, IDropdownOption, IColumn } from '@fluentui/react'
 
 // Components
-import { getTableNameList } from '../excelAPI'
+import { getTableColumns, getTableNameList } from '../excelAPI'
 import { TableViewer } from './TableViewer'
 
 // ---------------------- Dev Settings ----------------------
@@ -42,6 +42,19 @@ const App = () => {
   const [theme, setTheme] = useState<string>('light')
   const [tableList, setTableList] = useState<IDropdownOption<any>[]>([{key: '0', text: '--------------------------------'}])
 
+  const [tableHeadder, setTableHeadder] = useState<IColumn[]>([
+    { key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200, isResizable: true },
+    { key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true },
+  ])
+
+  const [tableBody, setTableBody] = useState<any[]>([
+    { key: 1, name: 'item1', value: 'aaa' },
+    { key: 2, name: 'item2', value: 'bbb' },
+    { key: 3, name: 'item3', value: 'ccc' },
+    { key: 4, name: 'item4', value: 'ddd' },
+    { key: 5, name: 'item5', value: 'eee' }
+  ])
+
   // ---------------------- Excel API ----------------------
 
   /**
@@ -66,25 +79,9 @@ const App = () => {
       setTableList(newList)
   }
 
-
-
-  // test
-  const columns = [
-    // { key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200, isResizable: true },
-    // { key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true },
-  ]
-
-  const items = [
-    // { key: 1, name: 'item1', value: 'aaa' },
-    // { key: 2, name: 'item2', value: 'bbb' },
-    // { key: 3, name: 'item3', value: 'ccc' },
-    // { key: 4, name: 'item4', value: 'ddd' },
-    // { key: 5, name: 'item5', value: 'eee' }
-  ]
-
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-      <TableViewer columns={columns} items={items} tableList={tableList}/>
+      <TableViewer columns={tableHeadder} items={tableBody} tableList={tableList} setTableHeadder={setTableHeadder} setTableBody={setTableBody}/>
     </ThemeProvider>
   )
 }

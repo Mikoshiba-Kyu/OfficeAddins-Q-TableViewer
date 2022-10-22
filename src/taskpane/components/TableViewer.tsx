@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { DetailsList, DetailsListLayoutMode, SelectionMode, IColumn } from '@fluentui/react/lib/DetailsList'
-import { DefaultPalette, IDropdownOption, IStackItemStyles, IStackStyles, IStackTokens, Stack } from '@fluentui/react'
+import { IDropdownOption, IStackItemStyles, IStackTokens, Stack } from '@fluentui/react'
 import { useState } from 'react'
 import TableSelecter from './TableSelecter'
 import CompactModeChange from './CompactModeChange'
@@ -9,6 +9,8 @@ export interface Props {
     columns: IColumn[]
     items: any[]
     tableList: IDropdownOption<any>[]
+    setTableHeadder: Function
+    setTableBody: Function
 }
 
 export const TableViewer = (props: Props) => {
@@ -33,7 +35,7 @@ export const TableViewer = (props: Props) => {
         <>
             <Stack horizontal horizontalAlign="start" tokens={stackTokens}>
                 <Stack.Item grow={2} styles={stackItemStyles}>
-                    <TableSelecter tableList={props.tableList}/>
+                    <TableSelecter tableList={props.tableList} />
                 </Stack.Item>
                 <Stack.Item grow={1} styles={stackItemStyles}>
                     <CompactModeChange isCompact={isCompact} setIsCompact={setIsCompact}></CompactModeChange>
