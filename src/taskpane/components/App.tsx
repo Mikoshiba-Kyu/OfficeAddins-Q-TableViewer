@@ -12,9 +12,8 @@ import { PrimaryButton } from '@fluentui/react/lib/Button'
 
 // Components
 import { Message } from './Message'
-import TableSelecter from './TableSelecter'
 import { getTableNameList } from '../excelAPI'
-import { DetailsListBasicExample } from './TableData'
+import { TableViewer } from './TableViewer'
 
 // ---------------------- Dev Settings ----------------------
 const isLogging = true
@@ -87,14 +86,25 @@ const App = () => {
     setTableList(newTableList)
   }
 
+  // test
+  const columns = [
+    { key: 'column1', name: 'Name', fieldName: 'name', minWidth: 100, maxWidth: 200, isResizable: true },
+    { key: 'column2', name: 'Value', fieldName: 'value', minWidth: 100, maxWidth: 200, isResizable: true },
+  ]
 
+  const items = [
+    { key: 1, name: 'item1', value: 'aaa' },
+    { key: 2, name: 'item2', value: 'bbb' },
+    { key: 3, name: 'item3', value: 'ccc' },
+    { key: 4, name: 'item4', value: 'ddd' },
+    { key: 5, name: 'item5', value: 'eee' }
+  ]
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <Message selectRange={selectRange}></Message>
       <PrimaryButton onClick={testCall}>aaa</PrimaryButton>
-      <TableSelecter tableList={tableList}></TableSelecter>
-      <DetailsListBasicExample></DetailsListBasicExample>
+      <TableViewer columns={columns} items={items} tableList={tableList}/>
     </ThemeProvider>
   )
 }
