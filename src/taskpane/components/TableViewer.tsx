@@ -5,6 +5,9 @@ import { useState } from 'react'
 import TableSelecter from './TableSelecter'
 import CompactModeChange from './CompactModeChange'
 
+// ---------------------- Dev Settings ----------------------
+const isLogging = true
+
 export interface Props {
     columns: IColumn[]
     items: any[]
@@ -14,6 +17,7 @@ export interface Props {
 }
 
 export const TableViewer = (props: Props) => {
+    isLogging && console.log("[Addins] レンダリング : TableViewerコンポーネント")
 
     const [isCompact, setIsCompact] = useState(false)
 

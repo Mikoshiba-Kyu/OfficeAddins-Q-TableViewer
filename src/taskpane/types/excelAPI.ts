@@ -1,0 +1,1 @@
+export type GetTableColumns = (tableName: string) => (Promise<any>)

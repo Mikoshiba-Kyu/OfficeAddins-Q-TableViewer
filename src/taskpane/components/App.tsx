@@ -32,11 +32,13 @@ const darkTheme: PartialTheme = {
 
 // ---------------------- Contents ----------------------
 const App = () => {
+  isLogging && console.log("[Addins] レンダリング : Appコンポーネント")
 
   // useEffect
   useEffect(() => {
     registerSelectionChangeHandler()
-  }) 
+    isLogging && console.log("[Addins] useEffect実行 : Appコンポーネント")
+  }, []) 
 
   // useState
   const [theme, setTheme] = useState<string>('light')
@@ -77,6 +79,7 @@ const App = () => {
   const updateTableList = async () => {
       const newList = await getTableNameList()
       setTableList(newList)
+      isLogging && console.log(`[Addins] ステート更新 : setTableList to ${newList}`)
   }
 
   return (
