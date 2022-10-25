@@ -1,5 +1,8 @@
-// ---------------------- Imports ----------------------
+// ---------------------- Dev Settings ----------------------
+const isLogging = true
+const moduleName = 'App.tsx'
 
+// ---------------------- Import ----------------------
 // React
 import * as React from 'react'
 import { useState }  from 'react'
@@ -10,12 +13,8 @@ import { ThemeProvider, PartialTheme, IColumn } from '@fluentui/react'
 // Components
 import { TableViewer } from './TableViewer'
 
-// ---------------------- Dev Settings ----------------------
-const isLogging = true
-const moduleName = 'App.tsx'
 
 // ---------------------- Theme ----------------------
-
 const lightTheme: PartialTheme = {
   semanticColors: {
     bodyBackground: '#FAFAFA',

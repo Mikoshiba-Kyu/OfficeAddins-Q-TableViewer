@@ -1,11 +1,12 @@
-import * as React from 'react'
-import { Dropdown, IDropdownOption, IDropdownStyles } from '@fluentui/react/lib/Dropdown'
-import { useEffect, useState } from 'react'
-import { getTableNameList } from '../excelAPI'
-
 // ---------------------- Dev Settings ----------------------
 const isLogging = true
 const moduleName = 'TableSelecter.tsx'
+
+// ---------------------- Import ----------------------
+import * as React from 'react'
+import { Dropdown, IDropdownOption, IDropdownStyles } from '@fluentui/react/lib/Dropdown'
+import { useEffect, useState } from 'react'
+import { useFetchTableList } from '../hooks/useFetchTableList'
 
 const listStyle: Partial<IDropdownStyles> = {
 	dropdown: {
@@ -17,14 +18,17 @@ const listStyle: Partial<IDropdownStyles> = {
 export const TableSelecter = () => {
 	isLogging && console.log(`[Addins] [${moduleName}] レンダリング`)
 
+	// useFetchTableList
+	const { tableList, reloadTableList } = useFetchTableList()
+
 	// useEffect
 	useEffect(() => {
 		registerSelectionChangeHandler()
+		reloadTableList()
 		isLogging && console.log(`[Addins] [${moduleName}] useEffect実行 : TableSelectorコンポーネント`)
 	}, [])
 
 	// useState
-	const [tableList, setTableList] = useState<IDropdownOption<any>[]>([])
 	const [selectedTable, setSelectedTable] = useState<IDropdownOption>()
 
 	// Selecterの値変更時の動作
@@ -42,21 +46,12 @@ export const TableSelecter = () => {
 	const registerSelectionChangeHandler = async () => {
 		await Excel.run(async (context) => {
 		const tables = context.workbook.tables
-		tables.onAdded.add(updateTableList);
-		tables.onDeleted.add(updateTableList);
+		tables.onAdded.add(async () => reloadTableList())
+		tables.onDeleted.add(async () => reloadTableList())
 
 		await context.sync()
 		isLogging && console.log(`[Addins] [${moduleName}] テーブルコレクション変更イベントを有効化`)
 		})
-	}
-
-	/**
-	 * テーブルリストの更新処理
-	 */
-	const updateTableList = async () => {
-		const newList = await getTableNameList()
-		setTableList(newList)
-		isLogging && console.log(`[Addins] [${moduleName}] ステート更新 : setTableList to ${newList}`)
 	}
 
 	return (
