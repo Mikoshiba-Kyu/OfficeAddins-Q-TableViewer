@@ -8,6 +8,10 @@ import { Dropdown, IDropdownOption, IDropdownStyles } from '@fluentui/react/lib/
 import { useEffect, useState } from 'react'
 import { useFetchTableList } from '../hooks/useFetchTableList'
 
+export interface Props {
+	reloadTableData: Function
+}
+
 const listStyle: Partial<IDropdownStyles> = {
 	dropdown: {
 		fontSize: 16,
@@ -15,7 +19,7 @@ const listStyle: Partial<IDropdownStyles> = {
 	}
 }
 
-export const TableSelecter = () => {
+export const TableSelecter = (props: Props) => {
 	isLogging && console.log(`[Addins] [${moduleName}] レンダリング`)
 
 	// useFetchTableList
@@ -33,6 +37,7 @@ export const TableSelecter = () => {
 
 	// Selecterの値変更時の動作
 	const onSelectChange = (_event: React.FormEvent<HTMLDivElement>, item: IDropdownOption): void => {
+		props.reloadTableData(item.text)
 		setSelectedTable(item)
 		isLogging && console.log(`[Addins] [${moduleName}] state更新 : selectedTable`)
 	}

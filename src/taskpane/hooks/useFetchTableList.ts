@@ -14,18 +14,17 @@ export const useFetchTableList = () => {
     let result: IDropdownOption<any>[] = []
 
     Excel.run(async (context) => {
-        const tables = context.workbook.tables
-        tables.load()
-        await context.sync()
+      const tables = context.workbook.tables
+      tables.load()
+      await context.sync()
 
-        result = tables.items.map((value, index) => {
-            return {key: index + 1, text: value.name}
-        })
-        result.unshift({key: 0, text: '--------------------------------'})
-        
-        setTableList(result)
-        isLogging && console.log(`[Addins] [${moduleName}] ステート更新 : tableList to ${result}`)
-        
+      result = tables.items.map((value, index) => {
+        return {key: index + 1, text: value.name}
+      })
+
+      setTableList(result)
+      isLogging && console.log(`[Addins] [${moduleName}] state更新 : tableList to ${result}`)
+      
     })
   }
 
