@@ -8,26 +8,17 @@ import * as React from 'react'
 import { useState }  from 'react'
 
 // FluentUI
-import { ThemeProvider, PartialTheme } from '@fluentui/react'
+import { ThemeProvider } from '@fluentui/react'
 
 // Components
+import { Header } from './Header'
 import { TableViewer } from './TableViewer'
+import SidePanel from './SidePanel'
 
-// ---------------------- Theme ----------------------
-const lightTheme: PartialTheme = {
-  semanticColors: {
-    bodyBackground: '#FAFAFA',
-    bodyText: '#111111',
-  },
-}
+import { useBoolean } from '@fluentui/react-hooks'
 
-const darkTheme: PartialTheme = {
-  semanticColors: {
-    bodyBackground: '#111111',
-    bodyText: '#FAFAFA',
-  },
-}
-
+// Theme
+import { lightTheme, darkTheme } from '../theme'
 
 // ---------------------- Contents ----------------------
 const App = () => {
@@ -36,9 +27,15 @@ const App = () => {
   // useState
   const [theme, setTheme] = useState<string>('light')
 
+  // SidePane
+	const [isOpen, { setTrue: openPanel, setFalse: dismissPanel }] = useBoolean(false)
+
+
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <Header openPanel={openPanel} />
       <TableViewer />
+      <SidePanel isOpen={isOpen} dismissPanel={dismissPanel} />
     </ThemeProvider>
   )
 }
