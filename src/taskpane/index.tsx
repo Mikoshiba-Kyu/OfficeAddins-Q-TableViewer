@@ -11,7 +11,7 @@ initializeIcons();
 
 let isOfficeInitialized = false;
 
-const title = "Table Viewer";
+const title = "Q-TableViewer";
 
 const render = (Component) => {
   ReactDOM.render(
