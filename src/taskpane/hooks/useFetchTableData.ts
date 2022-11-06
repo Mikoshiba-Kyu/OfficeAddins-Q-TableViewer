@@ -53,7 +53,7 @@ export const useFetchTableData = () => {
       })      
 
       setTableItems(rowsResult)
-      isLogging && console.log(`[Addins] [${moduleName}] state更新 : tableItems to ${JSON.stringify(rowsResult)}`)
+      // isLogging && console.log(`[Addins] [${moduleName}] state更新 : tableItems to ${JSON.stringify(rowsResult)}`)
     })
   }
 

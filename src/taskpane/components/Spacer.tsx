@@ -12,7 +12,7 @@ export interface Props {
 }
 
 // ---------------------- Contents ----------------------
-export const Spacer = (props: Props) => {
+const Spacer = (props: Props) => {
     return (
         <div
             style={
@@ -23,3 +23,4 @@ export const Spacer = (props: Props) => {
         />
     )
 }
+export default Spacer
