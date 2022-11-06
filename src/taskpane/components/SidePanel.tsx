@@ -1,16 +1,23 @@
+// ---------------------- Dev Settings ----------------------
+const isLogging = true
+const moduleName = 'SidePanel.tsx'
+
+// ---------------------- Import ----------------------
 import * as React from 'react'
 import { Panel } from '@fluentui/react/lib/Panel'
 import { Spacer } from './Spacer'
 import { BaseButton, Button, DefaultButton } from '@fluentui/react/lib/Button'
 
+// ---------------------- Props ----------------------
 export interface Props {
 	isOpen: boolean
 	dismissPanel: { (event: React.MouseEvent<HTMLDivElement | HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement | BaseButton | Button, MouseEvent>): void; (ev?: React.SyntheticEvent<HTMLElement, Event> | KeyboardEvent): void }
 }
 
-
+// ---------------------- Contents ----------------------
 const SidePanel = (props: Props) => {
-
+	isLogging && console.log(`[Addins] [${moduleName}] Rendering.`)
+	
 	const onRenderFooterContent = React.useCallback(
 		() => (
 		<div>
@@ -28,7 +35,7 @@ const SidePanel = (props: Props) => {
 			closeButtonAriaLabel="Close"
 			onRenderFooterContent={onRenderFooterContent}
 			isFooterAtBottom={true}
-      	>
+		>
 			<Spacer size='2rem'></Spacer>
 			<div>test</div>
 			<Spacer size='2rem'></Spacer>

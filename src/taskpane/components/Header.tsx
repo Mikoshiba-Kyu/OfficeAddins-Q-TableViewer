@@ -6,22 +6,23 @@ const moduleName = 'Header.tsx'
 import * as React from 'react'
 import { IIconProps, initializeIcons } from '@fluentui/react';
 import { TooltipHost, ITooltipHostStyles } from '@fluentui/react/lib/Tooltip';
-import { IconButton } from '@fluentui/react/lib/Button';
+import { BaseButton, IconButton } from '@fluentui/react/lib/Button';
 import { useId } from '@fluentui/react-hooks';
 
+// ---------------------- Props ----------------------
 export interface Props {
-	openPanel
+	openPanel: React.MouseEventHandler<HTMLDivElement | HTMLAnchorElement | HTMLButtonElement | HTMLSpanElement | BaseButton>
 }
 
-initializeIcons()
-
 const emojiIcon: IIconProps = { iconName: 'Settings' }
-
 const calloutProps = { gapSpace: 0 }
 const hostStyles: Partial<ITooltipHostStyles> = { root: { display: 'inline-block' } }
 
-export const Header = (props: Props) => {
-	isLogging && console.log(`[Addins] [${moduleName}] レンダリング`)
+initializeIcons()
+
+// ---------------------- Contents ----------------------
+const Header = (props: Props) => {
+	isLogging && console.log(`[Addins] [${moduleName}] Rendering.`)
 	const tooltipId = useId('tooltip');
 	return (
         <TooltipHost
@@ -32,7 +33,7 @@ export const Header = (props: Props) => {
 			setAriaDescribedBy={false}
 		>
 			<IconButton iconProps={emojiIcon} aria-label="Emoji" onClick={props.openPanel} />
-      </TooltipHost>
+		</TooltipHost>
 	)
 }
 

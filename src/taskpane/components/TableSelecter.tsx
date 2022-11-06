@@ -8,6 +8,7 @@ import { Dropdown, IDropdownOption, IDropdownStyles } from '@fluentui/react/lib/
 import { useEffect, useState } from 'react'
 import { useFetchTableList } from '../hooks/useFetchTableList'
 
+// ---------------------- Props ----------------------
 export interface Props {
 	reloadTableData: Function
 }
@@ -19,8 +20,9 @@ const listStyle: Partial<IDropdownStyles> = {
 	}
 }
 
-export const TableSelecter = (props: Props) => {
-	isLogging && console.log(`[Addins] [${moduleName}] レンダリング`)
+// ---------------------- Contents ----------------------
+const TableSelecter = (props: Props) => {
+	isLogging && console.log(`[Addins] [${moduleName}] Rendering.`)
 
 	// useFetchTableList
 	const { tableList, reloadTableList } = useFetchTableList()

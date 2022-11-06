@@ -12,8 +12,8 @@ import CompactModeChange from './CompactModeChange'
 
 import { useFetchTableData } from '../hooks/useFetchTableData'
 
-export const TableViewer = () => {
-    isLogging && console.log(`[Addins] [${moduleName}] レンダリング`)
+const TableViewer = () => {
+    isLogging && console.log(`[Addins] [${moduleName}] Rendering.`)
 
     // useState
     const [isCompact, setIsCompact] = useState(false)
@@ -55,3 +55,4 @@ export const TableViewer = () => {
         </>
     )
 }
+export default TableViewer
